@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minesweeper</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+</head>
+<body onload="init()">
+    
+    
+    <div class="container">
+        <h1>Minesweeper</h1>
+        <div class="modal">
+            <span class='marked-flags'>2</span>
+            <span class='timer'>0</span>
+        </div>
+        <button onclick=resetGame()><span style="font-size: 26px;">🙂</span></button>
+        <table>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

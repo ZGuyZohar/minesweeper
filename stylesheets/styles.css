@@ -1,0 +1,39 @@
+* {
+    font-family: 'Press Start 2P', cursive;
+    box-sizing: border-box;
+}
+
+.border {
+    border: 2px solid black;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+}
+
+.container {
+    width: 300px;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.marked {
+    background-color: gray;
+}
+
+table {
+    margin: auto;
+}
+
+img {
+    width: 30px;
+    height: 30px;    
+}
+
+button {
+    margin-left:125px;
+    /* margin-right: 100px; */
+    width: 50px;
+    height: 50px;
+}
+
