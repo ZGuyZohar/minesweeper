@@ -62,7 +62,6 @@ function cellClicked(elCell, i, j) {
         clearAllMines();
         createRandomMines(gMode);        
     }
-    openNeighbors(i,j)
     if (elCell.classList.contains('marked')) return;
     if (gBoard[i][j].isMine) return gameOver(i, j);
     if (gBoard[i][j].isMarked) return;
@@ -72,6 +71,21 @@ function cellClicked(elCell, i, j) {
         elCell.classList.remove('flag');
     }
     if (gBoard[i][j].minesAroundCount === 0) elCell.innerText = '';
+    var neighs = openNeighbors(i, j);
+    if (neighs.length) {
+        for (var i = 0; i < neighs.length; i++) {
+            var neighCell = gBoard[neighs[i].i][neighs[i].j];
+            var elNeigh = document.getElementById(
+                `${neighs[i].i}-${neighs[i].j}`
+            );
+            neighCell.isShown = true;
+            if (neighCell.isShown) {
+                elNeigh.classList.add('marked');
+                elNeigh.innerText = neighCell.minesAroundCount;
+            }
+            if (neighCell.minesAroundCount === 0) elNeigh.innerText = '';
+        }
+    }
     gGame.shownCount = findCellCount();
     if (
         gGame.markedCount === 2 &&
@@ -170,36 +184,14 @@ function openNeighbors(cellI, cellJ) {
         for (var j = cellJ - 1; j <= cellJ + 1; j++) {
             if (j > gBoard[0].length - 1 || j < 0) continue;
             var cell = gBoard[i][j];
+            if (cell.isMine) return cellsToOpen = [];
             if (cell.isMarked) continue;
             if (cell === gBoard[cellI][cellJ]) continue;
             var elCellNeigh = document.getElementById(`${i}-${j}`);
             cellsToOpen.push(getCellCoord(elCellNeigh.id));
-            if (cell.isMine) return cellsToOpen = [];
         }
     }
-    var nextCells = []
-    if (cellsToOpen.length) {
-        for (var i = 0; i < cellsToOpen.length; i++) {
-            var neighCell = gBoard[cellsToOpen[i].i][cellsToOpen[i].j];
-            var elNeigh = document.getElementById(
-                `${cellsToOpen[i].i}-${cellsToOpen[i].j}`
-            );
-            neighCell.isShown = true;
-            if (neighCell.isShown) {
-                elNeigh.classList.add('marked');
-                elNeigh.innerText = neighCell.minesAroundCount;
-            }
-            if (neighCell.minesAroundCount === 0) {
-                elNeigh.innerText = '';
-                nextCells.push(neighCell)
-            }
-        }
-    }
-        for(var i = 0; i<nextCells.length; i++){
-            console.log('hello');
-            openNeighbors(nextCells[i].i, nextCells[i].j)
-        }
-    
+    return cellsToOpen;
 }
 
 function findCellCount() {
