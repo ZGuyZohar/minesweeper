@@ -1,39 +1,32 @@
 'use strict'
 
-function buildBoard() {
+function buildBoard(idx) {
+    gMode = idx;
     var board = [];
-    var mines = getRandomMineIdx(2)
     
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < gLevel.size[idx]; i++) {
         board[i] = []
-        for (var j = 0; j < 4; j++) {
-            var cell =  {
+        for (var j = 0; j < gLevel.size[idx]; j++) {
+            var cell = {
+                i: i,
+                j: j,
                 minesAroundCount: 0,
                 isShown: false,
                 isMine: false,
-                isMarked: true
-            }
+                isMarked: false
+            };
             board[i][j] = cell;
-            if (i === mines[0].i && j === mines[0].j) {
-                cell.isMine = true;
-                cell.minesAroundCount = null;
-            } 
-            if (i === mines[1].i && j === mines[1].j) {
-                cell.isMine = true;
-                cell.minesAroundCount = null;
-            } 
         }
     }
-    console.table(board)
     return board;
 }
 
-function renderBoard() {
+function renderBoard(idx) {
     var elTbody = document.querySelector('tbody');
     var strHtml = '';
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < gLevel.size[idx]; i++) {
         strHtml += '<tr>';
-        for (var j = 0; j < 4; j++) {
+        for (var j = 0; j < gLevel.size[idx]; j++) {
             var cell = gBoard[i][j];
             cell.minesAroundCount = findNeighbors(i, j);
             strHtml += `<td class="border" id="${i}-${j}" oncontextmenu="toggleFlag(this, ${i}, ${j});return false;"
@@ -43,13 +36,6 @@ function renderBoard() {
     }
     elTbody.innerHTML = strHtml;
 };
-
-
-function renderCell(i, j, value) {
-    // Select the elCell and set the value
-    var elCell = document.querySelector(`.cell${location.i}-${location.j}`);
-    elCell.innerHTML = value;
-}
 
 function stopWatch() {
     var elModalTimer = document.querySelector('.modal .timer');
@@ -70,4 +56,3 @@ function getRandomInt(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
 }
-

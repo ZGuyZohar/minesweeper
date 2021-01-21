@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minesweeper</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&display=swap" rel="stylesheet">
+
+
 
 </head>
 <body onload="init()">
@@ -13,11 +15,17 @@
     
     <div class="container">
         <h1>Minesweeper</h1>
+        <div class="modes">
+            <button onclick="changeMode(0)">Easy</button>
+            <button onclick="changeMode(1)">Hard</button>
+            <button onclick="changeMode(2)">Extreme</button> 
+        </div>
+        
         <div class="modal">
-            <span class='marked-flags'>2</span>
+            <span class='marked-flags'></span>
+            <button class="reset" onclick=resetGame()><span style="font-size: 26px;">🙂</span></button>
             <span class='timer'>0</span>
         </div>
-        <button onclick=resetGame()><span style="font-size: 26px;">🙂</span></button>
         <table>
             <tbody></tbody>
         </table>
