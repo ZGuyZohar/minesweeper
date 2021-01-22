@@ -29,7 +29,7 @@ function renderBoard(idx) {
         for (var j = 0; j < gLevel.size[idx]; j++) {
             var cell = gBoard[i][j];
             cell.minesAroundCount = findNeighbors(i, j);
-            strHtml += `<td class="border" id="${i}-${j}" oncontextmenu="toggleFlag(this, ${i}, ${j});return false;"
+            strHtml += `<td class="border highlight" id="${i}-${j}" onmousedown="mark(${i}, ${j})" oncontextmenu="toggleFlag(this, ${i}, ${j});return false;"
             onclick="cellClicked(this, ${i}, ${j})"></td>`;
         }
         strHtml += '</tr>';
@@ -50,6 +50,58 @@ function getCellCoord(strCellId) {
     var coord = { i: +parts[0], j: +parts[1] };
     return coord;
 }
+
+function findCellCount() {
+    var count = 0;
+    for (var i = 0; i < gBoard.length; i++) {
+        for (var j = 0; j < gBoard.length; j++) {
+            var cell = gBoard[i][j];
+            if (cell.isShown) count++;
+        }
+    }
+    return count;
+}
+
+function findAllCellsNeighs() {
+    for (var i = 0; i < gBoard.length; i++) {
+        for (var j = 0; j < gBoard.length; j++) {
+            var cell = gBoard[i][j];
+            cell.minesAroundCount = findNeighbors(i, j);
+        }
+    }
+}
+
+function findEmptyCellCount() {
+    var emptyCells = [];
+    for (var i = 0; i < gBoard.length; i++) {
+        for (var j = 0; j < gBoard.length; j++) {
+            var cell = gBoard[i][j];
+            if (!cell.isShown) emptyCells.push(cell);
+        }
+    }
+    return emptyCells;
+}
+
+function clearAllMines() {
+    for (var i = 0; i < gBoard.length; i++) {
+        for (var j = 0; j < gBoard.length; j++) {
+            var cell = gBoard[i][j];
+            if (cell.isMine) cell.isMine = false;
+        }
+    }
+}
+
+function findMineCount() {
+    var count = 0;
+    for (var i = 0; i < gBoard.length; i++) {
+        for (var j = 0; j < gBoard.length; j++) {
+            var cell = gBoard[i][j];
+            if (cell.isMine) count++;
+        }
+    }
+    return count;
+}
+
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
