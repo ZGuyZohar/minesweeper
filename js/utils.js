@@ -13,7 +13,7 @@ function buildBoard(idx) {
                 minesAroundCount: 0,
                 isShown: false,
                 isMine: false,
-                isMarked: false
+                isMarked: false,
             };
             board[i][j] = cell;
         }
@@ -29,7 +29,7 @@ function renderBoard(idx) {
         for (var j = 0; j < gLevel.size[idx]; j++) {
             var cell = gBoard[i][j];
             cell.minesAroundCount = findNeighbors(i, j);
-            strHtml += `<td class="border highlight" id="${i}-${j}" onmousedown="mark(${i}, ${j})" oncontextmenu="toggleFlag(this, ${i}, ${j});return false;"
+            strHtml += `<td class="border highlight mark" id="${i}-${j}" oncontextmenu="toggleFlag(this, ${i}, ${j});return false;"
             onclick="cellClicked(this, ${i}, ${j})"></td>`;
         }
         strHtml += '</tr>';
@@ -89,6 +89,7 @@ function clearAllMines() {
             if (cell.isMine) cell.isMine = false;
         }
     }
+    console.log('cleared all mines')
 }
 
 function findMineCount() {

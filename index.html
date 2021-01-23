@@ -14,21 +14,23 @@
     
     <div class="container">
         <h1>Minesweeper</h1>
-        <div class="info">
-            <span class="lives"></span>
-            <span onclick="useHints()" class="hints"></span>
-        </div>
+        <p>Your High Score is: <span class="score"></span> seconds</p>
         <div class="modes">
+            <span class="lives"></span>
             <button class="highlight-btn" onclick="changeMode(0)">Easy</button>
             <button class="highlight-btn" onclick="changeMode(1)">Hard</button>
             <button class="highlight-btn" onclick="changeMode(2)">Extreme</button> 
+            <div class="hints"></div>
+            <span class="safe-click" onclick="safeClick()">Safe Click (3)</span>
         </div>
-        
+
         <div class="modal">
+            
             <span class='marked-flags'></span>
             <button class="reset highlight-rst" onclick=resetGame()><span style="font-size: 26px;">🙂</span></button>
             <span class='timer'>0</span>
         </div>
+
         <table>
             <tbody></tbody>
         </table>
@@ -37,12 +39,12 @@
 
   <div class="modal-content">
     <span onclick="closeModal()"class="close">&times;</span>
-    <p>Must start the game first to use hints!</p>
   </div>
 
 </div>
-
+<!-- <button onclick="undo()">Undo</button> -->
     <script src="js/utils.js"></script>
+    <script src="js/features.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>
